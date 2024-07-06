@@ -1,5 +1,6 @@
-import { Client, NoAuth, LocalAuth } from 'whatsapp-web.js';
+import { Client, NoAuth, LocalAuth, Message } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
+import { handleMenuMessage } from '../services/menuService';
 
 const client = new Client({
     authStrategy: new LocalAuth(),
@@ -19,6 +20,14 @@ client.on('qr', (qr) => {
 client.on('ready', () => {
     console.log('Client is ready!');
 });
+
+client.on('message', async (message: Message) => {
+    console.log(`Received message: ${message.body}`);
+
+    // Handle menu response
+    await handleMenuMessage(message);
+});
+
 
 client.on('message', msg => {
     if (msg.body == '!ping') {
