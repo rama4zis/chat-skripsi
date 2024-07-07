@@ -8,3 +8,6 @@ Server should run automatically when starting a workspace. To run manually, run:
 ```sh
 npm run dev
 ```
+
+reset supabase 
+npx supabase db reset --linked

@@ -1,12 +1,9 @@
-create TABLE IF NOT EXISTS students (
+create TABLE IF NOT EXISTS course (
     id bigint primary key generated always as identity,
+    code text,
     name text,
-    nim text,
-    email text,
-    phone text,
-    address text,
-    parent_phone text,
-    status text,
+    sks int,
+    semester int,
     updated_at timestamptz default now(),
     created_at timestamptz default now()
 );
