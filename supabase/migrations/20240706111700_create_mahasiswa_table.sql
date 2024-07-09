@@ -1,7 +1,7 @@
-create TABLE IF NOT EXISTS students (
+create TABLE IF NOT EXISTS mahasiswa (
     id bigint primary key generated always as identity,
     name text,
-    nim text,
+    nim TEXT UNIQUE NOT NULL,
     email text,
     phone text,
     address text,

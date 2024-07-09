@@ -1,6 +1,6 @@
-create TABLE IF NOT EXISTS course (
-    id bigint primary key generated always as identity,
-    code text,
+create TABLE IF NOT EXISTS matakuliah (
+    kurikulum TEXT,
+    mk_code TEXT PRIMARY KEY NOT NULL,
     name text,
     sks int,
     semester int,
