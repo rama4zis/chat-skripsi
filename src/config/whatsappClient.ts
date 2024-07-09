@@ -2,16 +2,23 @@ import { Client, NoAuth, LocalAuth, Message } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 import { handleMenuMessage } from '../services/menuService';
 
+// old link 
+// https://raw.githubusercontent.com/wppconnect-team/wa-version/renovate/prettier-3.x/html/2.2412.54.html
+
 const client = new Client({
-    authStrategy: new LocalAuth(),
-    puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] },
+    // authStrategy: new NoAuth(), // To skip the authentication process
+    authStrategy: new LocalAuth(), // To use local authentication
+    puppeteer: {
+        headless: true,
+        args: [ '--no-sandbox', '--disable-gpu', ],
+    },
     webVersionCache: {
         type: "remote",
         remotePath:
-            "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html",
+            "https://raw.githubusercontent.com/wppconnect-team/wa-version/renovate/prettier-3.x/html/2.2412.54.html",
     },
-
 });
+
 
 client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true });
