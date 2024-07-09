@@ -10,13 +10,13 @@ const client = new Client({
     authStrategy: new LocalAuth(), // To use local authentication
     puppeteer: {
         headless: true,
-        args: [ '--no-sandbox', '--disable-gpu', ],
+        args: [ '--no-sandbox' ],
     },
-    webVersionCache: {
-        type: "remote",
-        remotePath:
-            "https://raw.githubusercontent.com/wppconnect-team/wa-version/renovate/prettier-3.x/html/2.2412.54.html",
-    },
+    // webVersionCache: {
+    //     type: "remote",
+    //     remotePath:
+    //         "https://raw.githubusercontent.com/wppconnect-team/wa-version/renovate/prettier-3.x/html/2.2412.54.html",
+    // },
 });
 
 
