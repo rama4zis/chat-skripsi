@@ -11,3 +11,8 @@ npm run dev
 
 reset supabase 
 npx supabase db reset --linked
+
+to generate the types.
+```
+npx supabase gen types typescript --project-id <projectID> > ./src/database.types.ts
+```

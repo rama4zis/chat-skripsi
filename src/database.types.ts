@@ -9,7 +9,204 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      kelas: {
+        Row: {
+          class_code: string
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          class_code: string
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          class_code?: string
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      kelas_detail: {
+        Row: {
+          capacity: string
+          class_code: string
+          id: number
+          mk_code: string
+          schedule: string
+        }
+        Insert: {
+          capacity: string
+          class_code: string
+          id?: never
+          mk_code: string
+          schedule: string
+        }
+        Update: {
+          capacity?: string
+          class_code?: string
+          id?: never
+          mk_code?: string
+          schedule?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kelas_detail_class_code_fkey"
+            columns: ["class_code"]
+            isOneToOne: false
+            referencedRelation: "kelas"
+            referencedColumns: ["class_code"]
+          },
+          {
+            foreignKeyName: "kelas_detail_mk_code_fkey"
+            columns: ["mk_code"]
+            isOneToOne: false
+            referencedRelation: "matakuliah"
+            referencedColumns: ["mk_code"]
+          },
+        ]
+      }
+      krs: {
+        Row: {
+          class_detail: number
+          created_at: string | null
+          grade: string | null
+          id: number
+          student_nim: string
+          updated_at: string | null
+        }
+        Insert: {
+          class_detail: number
+          created_at?: string | null
+          grade?: string | null
+          id?: never
+          student_nim: string
+          updated_at?: string | null
+        }
+        Update: {
+          class_detail?: number
+          created_at?: string | null
+          grade?: string | null
+          id?: never
+          student_nim?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "krs_class_detail_fkey"
+            columns: ["class_detail"]
+            isOneToOne: false
+            referencedRelation: "kelas_detail"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "krs_student_nim_fkey"
+            columns: ["student_nim"]
+            isOneToOne: false
+            referencedRelation: "mahasiswa"
+            referencedColumns: ["nim"]
+          },
+        ]
+      }
+      mahasiswa: {
+        Row: {
+          address: string | null
+          created_at: string | null
+          email: string | null
+          id: number
+          name: string | null
+          nim: string
+          parent_phone: string | null
+          phone: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: never
+          name?: string | null
+          nim: string
+          parent_phone?: string | null
+          phone?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          address?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: never
+          name?: string | null
+          nim?: string
+          parent_phone?: string | null
+          phone?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      matakuliah: {
+        Row: {
+          created_at: string | null
+          kurikulum: string | null
+          mk_code: string
+          name: string | null
+          semester: number | null
+          sks: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          kurikulum?: string | null
+          mk_code: string
+          name?: string | null
+          semester?: number | null
+          sks?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          kurikulum?: string | null
+          mk_code?: string
+          name?: string | null
+          semester?: number | null
+          sks?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          created_at: string | null
+          id: number
+          name: string
+          password: string
+          phone: string
+          updated_at: string | null
+          username: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: never
+          name: string
+          password: string
+          phone: string
+          updated_at?: string | null
+          username: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: never
+          name?: string
+          password?: string
+          phone?: string
+          updated_at?: string | null
+          username?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
