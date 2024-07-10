@@ -1,15 +1,15 @@
 -- Student
 INSERT INTO mahasiswa (name, nim, email, phone, address, parent_phone, status) VALUES
-('Rama Aditya Saputra', '13.2017.1.00612', 'rama4zis@proton.me', '+62-858-5644-0266', 'Bratang Geded 3i / 14a', '+62-813-5706-2113', 'active'),
-('Bob Johnson', '13.2017.1.00613', 'bob.johnson@example.com', '+62-812-3456-1001', '456 Elm St', '+62-813-3456-2001', 'active'),
-('Charlie Davis', '13.2017.1.00614', 'charlie.davis@example.com', '+62-812-3456-1002', '789 Oak St', '+62-813-3456-2002', 'active'),
-('Diana Evans', '13.2017.1.00615', 'diana.evans@example.com', '+62-812-3456-1003', '101 Pine St', '+62-813-3456-2003', 'active'),
-('Evan Garcia', '13.2017.1.00616', 'evan.garcia@example.com', '+62-812-3456-1004', '202 Maple St', '+62-813-3456-2004', 'active'),
-('Fiona Harris', '13.2017.1.00617', 'fiona.harris@example.com', '+62-812-3456-1005', '303 Birch St', '+62-813-3456-2005', 'active'),
-('George Lee', '13.2017.1.00618', 'george.lee@example.com', '+62-812-3456-1006', '404 Cedar St', '+62-813-3456-2006', 'active'),
-('Hannah Martin', '13.2017.1.00619', 'hannah.martin@example.com', '+62-812-3456-1007', '505 Walnut St', '+62-813-3456-2007', 'active'),
-('Ian Nelson', '13.2017.1.00620', 'ian.nelson@example.com', '+62-812-3456-1008', '606 Ash St', '+62-813-3456-2008', 'active'),
-('Jane O''Connor', '13.2017.1.00621', 'jane.oconnor@example.com', '+62-812-3456-1009', '707 Spruce St', '+62-813-3456-2009', 'active');
+('Rama Aditya Saputra', '13.2017.1.00612', 'rama4zis@proton.me', '085856440266', 'Bratang Geded 3i / 14a', '081357062113', 'active'),
+('Bob Johnson', '13.2017.1.00613', 'bob.johnson@example.com', '081234561001', '456 Elm St', '081334562001', 'active'),
+('Charlie Davis', '13.2017.1.00614', 'charlie.davis@example.com', '081234561002', '789 Oak St', '081334562002', 'active'),
+('Diana Evans', '13.2017.1.00615', 'diana.evans@example.com', '081234561003', '101 Pine St', '081334562003', 'active'),
+('Evan Garcia', '13.2017.1.00616', 'evan.garcia@example.com', '081234561004', '202 Maple St', '081334562004', 'active'),
+('Fiona Harris', '13.2017.1.00617', 'fiona.harris@example.com', '081234561005', '303 Birch St', '081334562005', 'active'),
+('George Lee', '13.2017.1.00618', 'george.lee@example.com', '081234561006', '404 Cedar St', '081334562006', 'active'),
+('Hannah Martin', '13.2017.1.00619', 'hannah.martin@example.com', '081234561007', '505 Walnut St', '081334562007', 'active'),
+('Ian Nelson', '13.2017.1.00620', 'ian.nelson@example.com', '081234561008', '606 Ash St', '081334562008', 'active'),
+('Jane O''Connor', '13.2017.1.00621', 'jane.oconnor@example.com', '081234561009', '707 Spruce St', '081334562009', 'active');
 
 -- Insert unique course data into the course table
 INSERT INTO matakuliah (kurikulum, mk_code, name, sks, semester) VALUES
