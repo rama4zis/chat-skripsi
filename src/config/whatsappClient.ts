@@ -2,6 +2,7 @@ import { Client, NoAuth, LocalAuth, Message } from 'whatsapp-web.js';
 import qrcode from 'qrcode-terminal';
 import { handleMenuMessage } from '../services/menuService';
 import { handleScheduleCheckMessage } from '../services/scheduleCheck';
+import { handleKeuanganCheck } from '../services/keuanganCheck';
 import jaroWinkler from 'jaro-winkler';
 
 // old link 
@@ -38,50 +39,65 @@ const isCommandMatch = (input: string, command: string): boolean => {
     const inputWords = splitWords(input);
     const commandWords = splitWords(command);
 
-    const highScoreWords: string[] = [];
+    const highScoreWords: { word: string, score: number }[] = [];
+    let totalScore = 0;
 
     inputWords.forEach(inputWord => {
         commandWords.forEach(commandWord => {
             const score = jaroWinkler(inputWord, commandWord);
-            // console.log('word = ', inputWord, '| compare = ', commandWord, '| score = ', score)
             if (score > 0.85) {
-                highScoreWords.push(inputWord);
+                highScoreWords.push({ word: inputWord, score });
+                totalScore += score;
             }
         });
     });
 
-    console.log('highScoreWords = ', highScoreWords)
-
-    // Check if high score words match the command words
-    let allMatch = false;
-    highScoreWords.forEach(highScoreWord => {
-        let matchFound = false;
+    let allMatch = 0;
+    highScoreWords.forEach(word => {
+        
         commandWords.forEach(commandWord => {
-            const score = jaroWinkler(highScoreWord, commandWord);
-            // console.log('word = ', highScoreWord, '| compare = ', commandWord, '| score = ', score)
+            const score = jaroWinkler(word.word, commandWord);
             if (score > 0.85) {
-                matchFound = true;
+                allMatch++;
             }
         });
-
-        if (matchFound) {
-            allMatch = true;
-        }
     });
-    // console.log('allMatch = ', allMatch)
-    return allMatch;
+
+    // get average 
+    if ( (allMatch / commandWords.length) > 0.85 ){
+        return true;
+    } else {
+        return false;
+    }
+
+    // const averageScore = highScoreWords.length > 0 ? totalScore / highScoreWords.length : 0;
+    // console.log('highScoreWords = ', highScoreWords, ' | averageScore = ', averageScore);
+
+    // let result = false;
+
+    // if (averageScore > 0.85) {
+    //     result = true;
+    // }
+    // console.log(`averageScore : ${averageScore}`)
+
+    // return result
+
+    // return averageScore > 0.85;
 };
 
+
+
 client.on('message', async (message: Message) => {
-    console.log(message);
     console.log(`Received message: ${message.body}`);
 
-    const command = 'cek schedule';
-
     switch (true) {
-        case isCommandMatch(message.body, command):
-            console.log('Masuk ke cek skedul')
+        case isCommandMatch(message.body, 'cek schedule'):
+            console.log('Masuk ke cek skedul');
             await handleScheduleCheckMessage(message);
+            break;
+        case isCommandMatch(message.body.toLowerCase(), 'cek keuangan'):
+            console.log('Masuk ke cek keuangan');
+            await handleKeuanganCheck(message);
             break;
         case isCommandMatch(message.body.toLowerCase(), '!ping'):
             message.reply('pong');
@@ -91,6 +107,7 @@ client.on('message', async (message: Message) => {
             break;
     }
 });
+
 
 client.initialize();
 

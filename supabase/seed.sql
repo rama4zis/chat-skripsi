@@ -1,7 +1,7 @@
 -- Student
 INSERT INTO mahasiswa (name, nim, email, phone, address, parent_phone, status) VALUES
 ('Rama Aditya Saputra', '13.2017.1.00612', 'rama4zis@proton.me', '085856440266', 'Bratang Geded 3i / 14a', '081357062113', 'active'),
-('Bob Johnson', '13.2017.1.00613', 'bob.johnson@example.com', '081234561001', '456 Elm St', '081334562001', 'active'),
+('Retno Wulan', '13.2017.1.00613', 'bob.johnson@example.com', '081357062113', '456 Elm St', '081334562001', 'active'),
 ('Charlie Davis', '13.2017.1.00614', 'charlie.davis@example.com', '081234561002', '789 Oak St', '081334562002', 'active'),
 ('Diana Evans', '13.2017.1.00615', 'diana.evans@example.com', '081234561003', '101 Pine St', '081334562003', 'active'),
 ('Evan Garcia', '13.2017.1.00616', 'evan.garcia@example.com', '081234561004', '202 Maple St', '081334562004', 'active'),
@@ -152,7 +152,8 @@ INSERT INTO matakuliah (kurikulum, mk_code, name, sks, semester) VALUES
 ('Kurikulum 2016', '16137307', 'Recommender System', 3, 7),
 ('Kurikulum 2021', '21138006', 'Recommender System', 3, 8),
 ('Kurikulum 2016', '16138306', 'Model dan Simulasi Sistem', 3, 8),
-('Kurikulum 2021', '21138007', 'Model dan Simulasi Sistem', 3, 8)
+('Kurikulum 2021', '21138007', 'Model dan Simulasi Sistem', 3, 8),
+('Kurikulum 2021', '555', 'Model dan Simulasi Sistem', 3, 8)
 ON CONFLICT (mk_code) DO NOTHING;
 
 -- Kelas
@@ -166,6 +167,13 @@ INSERT INTO kelas (class_code) VALUES
 -- Detail Kelas
 INSERT INTO kelas_detail (mk_code, class_code, schedule, capacity)
 VALUES
+('555', 'P', '[
+    {"day": "Senin", "time": "00:01–23:59 Materi"}, 
+    {"day": "Selasa", "time": "00:01–23:59 Materi"}, 
+    {"day": "Rabu", "time": "00:01–23:59 Materi"}, 
+    {"day": "Kamis", "time": "00:01–23:59 Responsi"}, 
+    {"day": "Jumat", "time": "00:01–23:59 Materi"}
+]', '46/46'),
 ('21000006', 'P', '[{"day": "Selasa", "time": "10:00–11:40 Materi"}, {"day": "Kamis", "time": "10:00–10:50 Responsi"}]', '46/46'),
 ('21000006', 'P1', '[{"day": "Selasa", "time": "10:00–11:40 Materi"}, {"day": "Kamis", "time": "10:50–11:40 Responsi"}]', '45/45'),
 ('21000006', 'P2', '[{"day": "Selasa", "time": "10:00–11:40 Materi"}, {"day": "Kamis", "time": "10:00–10:50 Responsi"}]', '45/45'),
@@ -291,7 +299,19 @@ INSERT INTO krs (student_nim, class_detail) VALUES
 ('13.2017.1.00612', '1'),
 ('13.2017.1.00612', '2'),
 ('13.2017.1.00612', '3'),
-('13.2017.1.00612', '4');
+('13.2017.1.00612', '4'),
+('13.2017.1.00612', '10'),
+
+('13.2017.1.00613', '5'),
+('13.2017.1.00613', '10'),
+('13.2017.1.00613', '6'),
+('13.2017.1.00613', '7'),
+('13.2017.1.00613', '1');
+
+INSERT INTO keuangan (student_nim, spp, tunggakan) VALUES
+('13.2017.1.00612', '1100000', '23'),
+('13.2017.1.00613', '1100000', '0');
+
 
 INSERT INTO users (username, password, name, phone) VALUES
 (

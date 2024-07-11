@@ -66,6 +66,35 @@ export type Database = {
           },
         ]
       }
+      keuangan: {
+        Row: {
+          id: number
+          spp: string
+          student_nim: string
+          tunggakan: string
+        }
+        Insert: {
+          id?: number
+          spp: string
+          student_nim: string
+          tunggakan: string
+        }
+        Update: {
+          id?: number
+          spp?: string
+          student_nim?: string
+          tunggakan?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "keuangan_student_nim_fkey"
+            columns: ["student_nim"]
+            isOneToOne: false
+            referencedRelation: "mahasiswa"
+            referencedColumns: ["nim"]
+          },
+        ]
+      }
       krs: {
         Row: {
           class_detail: number
