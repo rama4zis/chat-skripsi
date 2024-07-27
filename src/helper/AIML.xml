@@ -1,54 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-
     <category>
-        <pattern>
-            AKU INGIN CEK *
-        </pattern>
-        <template> Kamu <set name="command-list">
-                <star />
-            </set> Ingin mengecek apa, "schedule", "keuangan" atau "khs"? </template>
+        <pattern>AKU INGIN CEK *</pattern>
+        <template>Kamu <set name="command-list"><star/></set> Ingin mengecek apa, "schedule", "keuangan" atau "khs"?</template>
     </category>
 
-
     <category>
-        <pattern>*cek schedule*</pattern>
+        <pattern>CEK SCHEDULE</pattern>
         <template>AKU ADALAH AKADEMIK CHATBOT</template>
     </category>
 
-
-    <!--<category>-->
-    <!--    <pattern>APA ITU *</pattern>-->
-    <!--    <template><srai>AKU ADALAH <star /></srai></template>-->
-    <!--</category>-->
+    <category>
+        <pattern>CEK KEUANGAN</pattern>
+        <template>INFORMASI KEUANGAN</template>
+    </category>
 
     <category>
         <pattern>NAMA *</pattern>
-        <template>Hallo <set name="name">
-                <star />
-            </set>! </template>
+        <template>Hallo <set name="name"><star/></set>!</template>
     </category>
 
     <category>
         <pattern>SIAPA AKU</pattern>
-        <template>Kamu adalah <get name="name" />
-        </template>
+        <template>Kamu adalah <get name="name"/></template>
     </category>
 
     <category>
-        <pattern>Dimana *</pattern>
+        <pattern>DIMANA *</pattern>
         <template>
-            <think>
-                <set name="state">
-                    <star />
-                </set>
-            </think>
-
+            <think><set name="state"><star/></set></think>
             <condition name="state" value="Surabaya">Surabaya ada di Jawa Timur</condition>
             <condition name="state" value="Jakarta">Jakarta ada di Jawa Barat</condition>
             <condition name="state" value="Rumah">Rumahku ada di Surabaya</condition>
         </template>
     </category>
-
-
 </aiml>

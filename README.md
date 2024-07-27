@@ -10,7 +10,7 @@ npm run dev
 ```
 
 reset supabase 
-npx supabase db reset --linked
+npx supabase db reset --linked --debug
 
 to generate the types.
 ```

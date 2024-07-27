@@ -36,6 +36,11 @@ const splitWords = (str: string) => {
 };
 
 const isCommandMatch = (input: string, command: string): boolean => {
+
+    // Punctuation Removal
+    input = input.replace(/[^\w\s]/gi, '');
+    command = command.replace(/[^\w\s]/gi, '');
+
     const inputWords = splitWords(input);
     const commandWords = splitWords(command);
 
@@ -45,6 +50,7 @@ const isCommandMatch = (input: string, command: string): boolean => {
     inputWords.forEach(inputWord => {
         commandWords.forEach(commandWord => {
             const score = jaroWinkler(inputWord, commandWord);
+            // console.log(`Score for "${inputWord}" and "${commandWord}": ${score}`)
             if (score > 0.85) {
                 highScoreWords.push({ word: inputWord, score });
                 totalScore += score;
@@ -69,26 +75,13 @@ const isCommandMatch = (input: string, command: string): boolean => {
     } else {
         return false;
     }
-
-    // const averageScore = highScoreWords.length > 0 ? totalScore / highScoreWords.length : 0;
-    // console.log('highScoreWords = ', highScoreWords, ' | averageScore = ', averageScore);
-
-    // let result = false;
-
-    // if (averageScore > 0.85) {
-    //     result = true;
-    // }
-    // console.log(`averageScore : ${averageScore}`)
-
-    // return result
-
-    // return averageScore > 0.85;
 };
 
 
 
 client.on('message', async (message: Message) => {
     console.log(`Received message: ${message.body}`);
+    // await client.sendMessage(message.from, 'Baiklah, saya akan menjawab pertanyaan Anda.\n');
 
     switch (true) {
         case isCommandMatch(message.body, 'cek schedule'):
