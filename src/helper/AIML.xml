@@ -1,37 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<aiml>
+<aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern>AKU INGIN CEK *</pattern>
-        <template>Kamu <set name="command-list"><star/></set> Ingin mengecek apa, "schedule", "keuangan" atau "khs"?</template>
-    </category>
-
-    <category>
-        <pattern>CEK SCHEDULE</pattern>
-        <template>AKU ADALAH AKADEMIK CHATBOT</template>
-    </category>
-
-    <category>
-        <pattern>CEK KEUANGAN</pattern>
-        <template>INFORMASI KEUANGAN</template>
-    </category>
-
-    <category>
-        <pattern>NAMA *</pattern>
-        <template>Hallo <set name="name"><star/></set>!</template>
-    </category>
-
-    <category>
-        <pattern>SIAPA AKU</pattern>
-        <template>Kamu adalah <get name="name"/></template>
-    </category>
-
-    <category>
-        <pattern>DIMANA *</pattern>
+        <pattern>APA SAJA SYARAT PENDAFTARAN ULANG</pattern>
         <template>
-            <think><set name="state"><star/></set></think>
-            <condition name="state" value="Surabaya">Surabaya ada di Jawa Timur</condition>
-            <condition name="state" value="Jakarta">Jakarta ada di Jawa Barat</condition>
-            <condition name="state" value="Rumah">Rumahku ada di Surabaya</condition>
+            Syarat pendaftaran ulang adalah:
+            1. Membayar biaya pendaftaran
+            2. Melengkapi formulir pendaftaran ulang
+            3. Mengumpulkan berkas-berkas yang diperlukan
+        </template>
+    </category>
+
+    <category>
+        <pattern>AKU INGIN MELIHAT JADWAL KULIAH</pattern>
+        <template>
+            <think>
+                <set name="query">SELECT jadwal FROM jadwal_kuliah WHERE nim='$user_nim'</set>
+            </think>
+            Jadwal kuliah Anda adalah sebagai berikut: <get name="query" />
+        </template>
+    </category>
+
+    <category>
+        <pattern>APAKAH KAMU PUNYA KALENDER AKADEMIK</pattern>
+        <template>
+            Kalender akademik bisa diakses melalui link berikut: [link]
+        </template>
+    </category>
+
+    <category>
+        <pattern>BAGAIMANA STATUS KEUANGAN SAYA</pattern>
+        <template>
+            <think>
+                <set name="query">SELECT spp, tunggakan FROM keuangan WHERE student_nim='$user_nim'</set>
+            </think>
+            Status keuangan Anda adalah sebagai berikut: SPP: <get name="query" />, Tunggakan: <get
+                name="query" />
+        </template>
+    </category>
+
+    <category>
+        <pattern>BERAPA NILAI SAYA</pattern>
+        <template>
+            <think>
+                <set name="query">SELECT mata_kuliah, grade FROM nilai WHERE student_nim='$user_nim'</set>
+            </think>
+            Nilai Anda adalah sebagai berikut: <get name="query" />
         </template>
     </category>
 </aiml>

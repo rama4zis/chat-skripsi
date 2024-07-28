@@ -37,10 +37,6 @@ const splitWords = (str: string) => {
 
 const isCommandMatch = (input: string, command: string): boolean => {
 
-    // Punctuation Removal
-    input = input.replace(/[^\w\s]/gi, '');
-    command = command.replace(/[^\w\s]/gi, '');
-
     const inputWords = splitWords(input);
     const commandWords = splitWords(command);
 
