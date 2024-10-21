@@ -43,7 +43,7 @@ function jaroWinkler(s1: string, s2: string): number {
         return (
             (matches / len1 +
                 matches / len2 +
-                (matches - t) / matches) / 3
+                (matches - t) / matches) /3
         );
     };
 
@@ -59,7 +59,7 @@ function jaroWinkler(s1: string, s2: string): number {
         }
     }
 
-    return Math.round((jaro + (prefix * 0.1 * (1 - jaro)))*100)/100;;
+    return jaro + (prefix * 0.1 * (1 - jaro));
 }
 
 
@@ -78,8 +78,8 @@ const isCommandMatch = (input: string, command: string): boolean => {
     inputWords.forEach(inputWord => {
         commandWords.forEach(commandWord => {
             const score = jaroWinkler(inputWord, commandWord);
-            // console.log(`Score for "${inputWord}" and "${commandWord}": ${score}`)
-            if (score >= 0.80) {
+            console.log(`Score for "${inputWord}" and "${commandWord}": ${score}`)
+            if (score >= 0.78) {
                 highScoreWords.push({ word: inputWord, score });
                 totalScore += score;
             }
@@ -91,7 +91,7 @@ const isCommandMatch = (input: string, command: string): boolean => {
 
         commandWords.forEach(commandWord => {
             const score = jaroWinkler(word.word, commandWord);
-            if (score >= 0.80) {
+            if (score >= 0.78) {
                 allMatch++;
             }
         });
@@ -143,11 +143,11 @@ const tableData = [
     ["Jawal kuliah minggu ini apa?", "JADWAL KULIAH"]
 ]
 
-for (let i = 0; i < tableData.length; i++) {
-    console.log(`No ${i+1} | Input: ${tableData[i][0]}, Command yang Dicocokkan: ${tableData[i][1]}`);
-    isCommandMatch(tableData[i][0], tableData[i][1]);
-}
-// console.log(isCommandMatch('cskkelas', 'cekkelas'));
+// for (let i = 0; i < tableData.length; i++) {
+//     console.log(`No ${i+1} | Input: ${tableData[i][0]}, Command yang Dicocokkan: ${tableData[i][1]}`);
+//     isCommandMatch(tableData[i][0], tableData[i][1]);
+// }
+console.log(isCommandMatch('csk kelas', 'cek kelas'));
 
 
 
