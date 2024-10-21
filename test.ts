@@ -63,7 +63,7 @@ function jaroWinkler(s1: string, s2: string) {
 
     const jaro_winkler_similarity = jaro_similarity + (prefix_length * 0.1 * (1 - jaro_similarity));
 
-    return jaro_winkler_similarity;
+    return Math.round(jaro_winkler_similarity*100)/100;
 }
 
 const splitWords = (str: string) => {
@@ -82,7 +82,7 @@ const isCommandMatch = (input: string, command: string): boolean => {
         commandWords.forEach(commandWord => {
             const score = jaroWinkler(inputWord, commandWord);
             // console.log(`Score for "${inputWord}" and "${commandWord}": ${score}`)
-            if (score > 0.75) {
+            if (score >= 0.80) {
                 highScoreWords.push({ word: inputWord, score });
                 totalScore += score;
             }
@@ -94,7 +94,7 @@ const isCommandMatch = (input: string, command: string): boolean => {
         
         commandWords.forEach(commandWord => {
             const score = jaroWinkler(word.word, commandWord);
-            if (score > 0.75) {
+            if (score >= 0.80) {
                 allMatch++;
             }
         });
@@ -102,10 +102,10 @@ const isCommandMatch = (input: string, command: string): boolean => {
 
     // console.log('total score now = ', totalScore)
     // console.log('total commandWords = ', commandWords.length)
-    console.log('average total score = ', totalScore / allMatch)
+    console.log('average total score = ', totalScore / commandWords.length)
 
     // get average 
-    // console.log('average = ', totalScore)
+    // console.log('totalScore = ', totalScore)
     if ((totalScore / commandWords.length) > 0.85) {
         return true;
     } else {
@@ -127,29 +127,32 @@ const tableData = [
     ["stats keungn ku cek dong", "CEK KEUANGAN"],
     ["boleh tau jadwl kuliax?", "JADWAL KULIAH"],
     ["nilai2ku gmn nih?", "CEK NILAI"],
-    ["minta data khs semester lalu ya", "CEK KHS"],
-    ["gmn cara ambil cuti semester ini?", "MENGURUS CUTI"],
+    ["minta cek data khs semester lalu ya", "CEK KHS"],
+    ["gmn cara urus cuti semester ini?", "MENGURUS CUTI"],
     ["Aku mau lihat jadwal kuliah", "JADWAL KULIAH"],
     ["Tolong cek kalender akademik", "KALENDER AKADEMIK"],
     ["Aku pengen cek nilai", "CEK NILAI"],
     ["Cek uang kuliah dong", "CEK KEUANGAN"],
     ["Bagaimana cara mengurus cuti?", "MENGURUS CUTI"],
-    ["Syarat daftar ulang apa aja?", "SYARAT DAFTAR ULANG"],
-    ["Jadwal kuliah hari ini apa?", "JADWAL KULIAH"],
-    ["Kapan jadwal akademik keluar?", "KALENDER AKADEMIK"],
+    ["Syart daftar ulang apa aja?", "SYARAT DAFTAR ULANG"],
+    ["Jaadwal kuliaah hari ini apa?", "JADWAL KULIAH"],
+    ["Kapan jadwal klender akademik keluar?", "KALENDER AKADEMIK"],
     ["Info keuangan kampus dong", "CEK KEUANGAN"],
-    ["Hasil nilai semester ini apa aja?", "CEK NILAI"],
+    ["check nilai semester ini apa aja?", "CEK NILAI"],
     ["Boleh cek khs semester kemarin?", "CEK KHS"],
     ["Aku perlu info cuti", "MENGURUS CUTI"],
-    ["Syarat daftar ulang yang baru apa?", "SYARAT DAFTAR ULANG"],
-    ["Bisa cek status kuliah?", "CEK KELAS"],
-    ["Jadwal kuliah minggu ini apa?", "JADWAL KULIAH"]
+    ["Syarat dadtar ulsng yang baru apa?", "SYARAT DAFTAR ULANG"],
+    ["Bisa cek status klas?", "CEK KELAS"],
+    ["Jawal kuliah minggu ini apa?", "JADWAL KULIAH"]
 ]
 
 for (let i = 0; i < tableData.length; i++) {
     console.log(`No ${i+1} | Input: ${tableData[i][0]}, Command yang Dicocokkan: ${tableData[i][1]}`);
     isCommandMatch(tableData[i][0], tableData[i][1]);
 }
+    // console.log(isCommandMatch('Aku ingin csk kelas nanti', 'CEK kelas'));
+
+
 
 
 // console.log("asdasd");
