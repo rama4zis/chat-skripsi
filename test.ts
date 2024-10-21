@@ -1,70 +1,67 @@
-function jaroWinkler(s1: string, s2: string) {
-    const s1_len = s1.length;
-    const s2_len = s2.length;
+function jaroWinkler(s1: string, s2: string): number {
+    const jaroDistance = (s1: string, s2: string): number => {
+        const len1 = s1.length;
+        const len2 = s2.length;
 
-    if (s1_len === 0 || s2_len === 0) {
-        return 0.0;
-    }
+        if (len1 === 0) return len2 === 0 ? 1 : 0;
 
-    const matchWindow = Math.max(s1_len, s2_len) // 2 - 1;
+        const matchDistance = Math.floor(Math.max(len1, len2) / 2) - 1;
+        const s1Matches = new Array(len1).fill(false);
+        const s2Matches = new Array(len2).fill(false);
 
-    const s1_matches = new Array(s1_len).fill(false);
-    const s2_matches = new Array(s2_len).fill(false);
+        let matches = 0;
 
-    let matches = 0;
+        for (let i = 0; i < len1; i++) {
+            const start = Math.max(0, i - matchDistance);
+            const end = Math.min(i + matchDistance + 1, len2);
 
-    // Step 1: Count matches
-    for (let i = 0; i < s1_len; i++) {
-        const start = Math.max(0, i - matchWindow);
-        const end = Math.min(s2_len, i + matchWindow + 1);
+            for (let j = start; j < end; j++) {
+                if (s2Matches[j]) continue;
+                if (s1[i] !== s2[j]) continue;
 
-        for (let j = start; j < end; j++) {
-            if (!s2_matches[j] && s1[i] === s2[j]) {
-                s1_matches[i] = true;
-                s2_matches[j] = true;
+                s1Matches[i] = true;
+                s2Matches[j] = true;
                 matches++;
                 break;
             }
         }
-    }
 
-    if (matches === 0) {
-        return 0.0;
-    }
+        if (matches === 0) return 0;
 
-    // Step 2: Calculate transpositions
-    let s1_transpositions = 0;
-    let point = 0;
+        let t = 0;
+        let point = 0;
 
-    for (let i = 0; i < s1_len; i++) {
-        if (s1_matches[i]) {
-            while (!s2_matches[point]) {
-                point++;
-            }
-            if (s1[i] !== s2[point]) {
-                s1_transpositions++;
-            }
+        for (let i = 0; i < len1; i++) {
+            if (!s1Matches[i]) continue;
+            while (!s2Matches[point]) point++;
+            if (s1[i] !== s2[point]) t++;
             point++;
         }
-    }
 
-    // Step 3: Calculate Jaro similarity
-    const jaro_similarity = (matches / s1_len + matches / s2_len + (matches - s1_transpositions / 2) / matches) / 3;
+        t /= 2;
 
-    // Step 4: Calculate Jaro-Winkler similarity with prefix scaling
-    let prefix_length = 0;
-    for (let i = 0; i < Math.min(4, Math.min(s1_len, s2_len)); i++) {
+        return (
+            (matches / len1 +
+                matches / len2 +
+                (matches - t) / matches) / 3
+        );
+    };
+
+    const jaro = jaroDistance(s1, s2);
+    const prefixLength = Math.min(s1.length, s2.length, 4);
+    let prefix = 0;
+
+    for (let i = 0; i < prefixLength; i++) {
         if (s1[i] === s2[i]) {
-            prefix_length++;
+            prefix++;
         } else {
             break;
         }
     }
 
-    const jaro_winkler_similarity = jaro_similarity + (prefix_length * 0.1 * (1 - jaro_similarity));
-
-    return Math.round(jaro_winkler_similarity*100)/100;
+    return Math.round((jaro + (prefix * 0.1 * (1 - jaro)))*100)/100;;
 }
+
 
 const splitWords = (str: string) => {
     return str.toLowerCase().split(' ').filter(word => word);
@@ -91,7 +88,7 @@ const isCommandMatch = (input: string, command: string): boolean => {
 
     let allMatch = 0;
     highScoreWords.forEach(word => {
-        
+
         commandWords.forEach(commandWord => {
             const score = jaroWinkler(word.word, commandWord);
             if (score >= 0.80) {
@@ -150,7 +147,7 @@ for (let i = 0; i < tableData.length; i++) {
     console.log(`No ${i+1} | Input: ${tableData[i][0]}, Command yang Dicocokkan: ${tableData[i][1]}`);
     isCommandMatch(tableData[i][0], tableData[i][1]);
 }
-    // console.log(isCommandMatch('Aku ingin csk kelas nanti', 'CEK kelas'));
+// console.log(isCommandMatch('cskkelas', 'cekkelas'));
 
 
 
