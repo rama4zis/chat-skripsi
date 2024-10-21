@@ -54,19 +54,20 @@ const isCommandMatch = (input: string, command: string): boolean => {
         });
     });
 
-    let allMatch = 0;
-    highScoreWords.forEach(word => {
+    // let allMatch = 0;
+    // highScoreWords.forEach(word => {
         
-        commandWords.forEach(commandWord => {
-            const score = jaroWinkler(word.word, commandWord);
-            if (score > 0.85) {
-                allMatch++;
-            }
-        });
-    });
+    //     commandWords.forEach(commandWord => {
+    //         const score = jaroWinkler(word.word, commandWord);
+    //         if (score > 0.85) {
+    //             allMatch++;
+    //         }
+    //     });
+    // });
 
     // get average 
-    if ( (allMatch / commandWords.length) > 0.85 ){
+    // if ( (allMatch / commandWords.length) > 0.85 ){
+    if ((totalScore / commandWords.length) > 0.85) {
         return true;
     } else {
         return false;
